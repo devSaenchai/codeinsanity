@@ -1,0 +1,114 @@
+/* General Styles */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #050505;
+  color: #fff;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+}
+
+.electric-blue { color: #00f2ff; }
+.bg-electric { background-color: #00f2ff; }
+.border-electric { border-color: #00f2ff; }
+.glass {
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,242,255,0.3);
+  transition: all 0.3s;
+}
+
+.toggle-hidden { display: none; }
+.toggle-visible { display: grid; }
+
+.section {
+  padding: 10rem 5vw; /* bigger left-right space */
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  color: #aaa;
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+}
+
+/* Scroll Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  outline: none;
+}
+
+/* Project hover preview */
+.project-item:hover .project-preview {
+  display: block;
+  z-index: 10;
+}
+
+/* Marquee / Tech Stack */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+  gap: 3rem;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.grayscale {
+  filter: grayscale(100%);
+  transition: all 0.3s;
+}
+.grayscale:hover {
+  filter: grayscale(0%);
+  filter: drop-shadow(0 0 10px #00f2ff);
+}
+
+/* Footer */
+footer a {
+  text-decoration: none;
+}
+footer .glitch-hover:hover {
+  text-shadow: 2px 0 #00f2ff, -2px 0 #ff00c8;
+}
+footer {
+  background-color: #050505;
+}
+footer .container {
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .section { padding: 6rem 4vw; }
+  .marquee { animation: marquee 30s linear infinite; }
+  .grid.md\:grid-cols-3 { grid-template-columns: 1fr !important; }
+  .grid.md\:grid-cols-2 { grid-template-columns: 1fr !important; }
+}
