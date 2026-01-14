@@ -1,406 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="CodeInsanity – Web, Software and AI solutions inspired by modern automation platforms." />
-<title>CodeInsanity</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="CodeInsanity – Web, Software, AI & Automation company from Kerala.">
+<title>CodeInsanity | Insanely Digital</title>
 
-<!-- FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ================= ROOT THEME ================= */
+/* ========== ROOT ========== */
 :root {
-  --bg-main: #0A0A0F;
-  --bg-section: #12121A;
-  --border: #1F1F2E;
-  --accent: #FF6A00;
-  --text-main: #FFFFFF;
-  --text-muted: #A1A1B3;
+  --bg:#0A0A0F;
+  --glass:rgba(255,255,255,.06);
+  --border:rgba(255,255,255,.12);
+  --text:#ECECEC;
+  --muted:#A0A0A0;
+  --accent:#FF6A00;
+  --accent2:#FFB347;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* ========== BASE ========== */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Inter,sans-serif;
+  background:
+    radial-gradient(800px 400px at 20% -10%, rgba(255,106,0,.12), transparent 60%),
+    radial-gradient(600px 300px at 90% 10%, rgba(0,140,255,.12), transparent 60%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  overflow-x:hidden;
+}
+section{padding:180px 10%;position:relative}
+section::after{
+  content:"";
+  position:absolute;
+  bottom:0;left:10%;
+  width:80%;height:1px;
+  background:linear-gradient(to right,transparent,rgba(255,255,255,.15),transparent)
+}
+h1{font-size:clamp(42px,6vw,70px);line-height:1.1}
+h2{font-size:36px;margin-bottom:20px}
+p{color:var(--muted);max-width:900px}
+
+/* ========== PRELOADER ========== */
+#preloader{
+  position:fixed;inset:0;z-index:9999;
+  background:radial-gradient(500px 300px at 50% 40%, rgba(255,106,0,.18), transparent 70%),var(--bg);
+  display:flex;align-items:center;justify-content:center
+}
+.loader-logo{
+  font-size:26px;font-weight:700;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:pulse 1.5s infinite
+}
+@keyframes pulse{50%{opacity:.6}}
+
+/* ========== HEADER ========== */
+header{
+  position:fixed;width:100%;top:0;z-index:100;
+  backdrop-filter:blur(14px);
+  background:rgba(10,10,15,.6);
+  border-bottom:1px solid var(--border)
+}
+nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 10%
+}
+.logo{
+  font-weight:700;font-size:20px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent
+}
+nav ul{display:flex;gap:28px;list-style:none}
+nav a{color:var(--text);text-decoration:none;opacity:.8}
+nav a:hover{opacity:1}
+
+/* ========== MOBILE MENU ========== */
+.hamburger{display:none;font-size:24px;cursor:pointer}
+.mobile-menu{
+  position:fixed;inset:0;background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transform:translateY(-100%);transition:.6s ease;
+  z-index:200
+}
+.mobile-menu.show{transform:translateY(0)}
+.mobile-menu a{
+  font-size:28px;margin:14px 0;color:var(--text);text-decoration:none
+}
+.close{position:absolute;top:30px;right:30px;font-size:30px;cursor:pointer}
+
+/* ========== HERO ========== */
+.hero{min-height:100vh;display:flex;align-items:center}
+.hero h1 span{display:inline-block;transform:translateY(100%);animation:reveal .8s forwards}
+.hero h1 span:nth-child(2){animation-delay:.3s}
+@keyframes reveal{to{transform:translateY(0)}}
+.cta{
+  display:inline-block;margin-top:30px;padding:12px 26px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;border-radius:8px;text-decoration:none;font-weight:600
 }
 
-html {
-  scroll-behavior: smooth;
+/* ========== CARDS ========== */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:50px}
+.card{
+  background:var(--glass);border:1px solid var(--border);
+  backdrop-filter:blur(14px);
+  padding:28px;border-radius:14px;transition:.4s
+}
+.card:hover{transform:translateY(-8px);border-color:rgba(255,106,0,.4)}
+
+/* ========== HOW ACCORDION ========== */
+.accordion .item{
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:12px;margin-bottom:16px;padding:20px;cursor:pointer
+}
+.accordion .content{max-height:0;overflow:hidden;transition:.4s;color:var(--muted)}
+.accordion .item.active .content{max-height:200px;margin-top:10px}
+
+/* ========== WORKS ========== */
+.works{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.works-list div{
+  padding:18px 0;border-bottom:1px solid var(--border);cursor:pointer
+}
+.works-preview{
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:14px;padding:40px;color:var(--muted)
 }
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg-main);
-  color: var(--text-main);
-  line-height: 1.7;
+/* ========== FORM ========== */
+form{max-width:600px}
+input,textarea{
+  width:100%;margin-bottom:14px;padding:14px;
+  background:var(--glass);border:1px solid var(--border);
+  color:var(--text);border-radius:8px
 }
+button{border:none;cursor:pointer}
 
-/* ================= PRELOADER ================= */
-#preloader {
-  position: fixed;
-  inset: 0;
-  background: var(--bg-main);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+/* ========== FOOTER ========== */
+footer{
+  padding:80px 10%;display:flex;justify-content:space-between;flex-wrap:wrap;
+  border-top:1px solid var(--border)
 }
+.footer-left p{margin-top:10px}
+.footer-right a{display:block;color:var(--muted);text-decoration:none;margin-bottom:8px}
 
-.loader {
-  width: 46px;
-  height: 46px;
-  border: 3px solid var(--border);
-  border-top: 3px solid var(--accent);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
+/* ========== ANIMATIONS ========== */
+.fade-up{opacity:0;transform:translateY(30px);transition:.8s}
+.fade-up.show{opacity:1;transform:translateY(0)}
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* ================= HEADER ================= */
-header {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-  background: rgba(10,10,15,0.8);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  padding: 20px 40px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-nav ul {
-  display: flex;
-  gap: 30px;
-  list-style: none;
-}
-
-nav a {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-nav a:hover {
-  color: var(--text-main);
-}
-
-.cta {
-  background: var(--accent);
-  padding: 8px 16px;
-  border-radius: 6px;
-  color: #fff;
-}
-
-/* Hamburger */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-}
-
-.hamburger span {
-  width: 24px;
-  height: 2px;
-  background: #fff;
-}
-
-/* ================= SECTIONS ================= */
-section {
-  padding: 160px 10%;
-  border-bottom: 1px solid var(--border);
-}
-
-.section-inner {
-  max-width: 1100px;
-  margin: auto;
-}
-
-h1 {
-  font-size: 64px;
-  line-height: 1.1;
-  margin-bottom: 30px;
-}
-
-h2 {
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-
-p {
-  color: var(--text-muted);
-  max-width: 700px;
-}
-
-/* ================= HERO ================= */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
-.hero p {
-  font-size: 18px;
-  margin-bottom: 40px;
-}
-
-.hero .cta {
-  display: inline-block;
-  font-size: 16px;
-}
-
-/* ================= CARDS ================= */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  margin-top: 60px;
-}
-
-.card {
-  background: var(--bg-section);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 30px;
-  transition: transform 0.4s ease;
-}
-
-.card:hover {
-  transform: translateY(-8px);
-}
-
-.card h3 {
-  margin-bottom: 10px;
-}
-
-/* ================= WORKS ================= */
-.works-list {
-  margin-top: 50px;
-}
-
-.works-list li {
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border);
-  list-style: none;
-  font-size: 18px;
-}
-
-/* ================= CONTACT ================= */
-form {
-  max-width: 500px;
-  margin-top: 40px;
-}
-
-input, textarea {
-  width: 100%;
-  background: var(--bg-section);
-  border: 1px solid var(--border);
-  padding: 14px;
-  color: #fff;
-  border-radius: 6px;
-  margin-bottom: 20px;
-}
-
-button {
-  background: var(--accent);
-  border: none;
-  padding: 14px 22px;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-/* ================= FOOTER ================= */
-footer {
-  padding: 60px 10%;
-  color: var(--text-muted);
-  font-size: 14px;
-}
-
-/* ================= ANIMATIONS ================= */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: 0.9s ease;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 900px) {
-  nav ul {
-    display: none;
-    position: absolute;
-    top: 70px;
-    right: 40px;
-    flex-direction: column;
-    background: var(--bg-section);
-    padding: 20px;
-    border-radius: 8px;
-  }
-
-  nav ul.show {
-    display: flex;
-  }
-
-  .hamburger {
-    display: flex;
-  }
-
-  h1 {
-    font-size: 44px;
-  }
+/* ========== RESPONSIVE ========== */
+@media(max-width:768px){
+  nav ul{display:none}
+  .hamburger{display:block}
+  .works{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
 
-<div id="preloader"><div class="loader"></div></div>
+<!-- PRELOADER -->
+<div id="preloader"><div class="loader-logo">CodeInsanity</div></div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="close" onclick="toggleMenu()">×</div>
+  <a href="#who" onclick="toggleMenu()">Who</a>
+  <a href="#what" onclick="toggleMenu()">What</a>
+  <a href="#how" onclick="toggleMenu()">How</a>
+  <a href="#works" onclick="toggleMenu()">Works</a>
+  <a href="#cost" onclick="toggleMenu()">Cost</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+</div>
 
 <header>
-  <div class="logo">CodeInsanity</div>
   <nav>
-    <ul id="navLinks">
+    <div class="logo">CodeInsanity</div>
+    <ul>
       <li><a href="#who">Who</a></li>
       <li><a href="#what">What</a></li>
       <li><a href="#how">How</a></li>
       <li><a href="#works">Works</a></li>
-      <li><a href="#contact" class="cta">Contact</a></li>
+      <li><a href="#cost">Cost</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
   </nav>
-  <div class="hamburger" id="hamburger">
-    <span></span><span></span><span></span>
-  </div>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="section-inner reveal">
-    <h1>Insanely Digital.<br>Built for Scale.</h1>
-    <p>We design and build modern websites, software platforms and AI-powered systems for businesses that want clarity, speed and long-term growth.</p>
-    <a href="#contact" class="cta">Start a Project</a>
+  <div>
+    <h1><span>Insanely Digital.</span><br><span>Built for Scale.</span></h1>
+    <p>We build web, software, and AI automation systems for modern businesses.</p>
+    <a class="cta" href="#contact">Get Started</a>
   </div>
 </section>
 
 <!-- WHO -->
 <section id="who">
-  <div class="section-inner reveal">
-    <h2>Who We Are</h2>
-    <p>
-      CodeInsanity is a technology company founded by Sanjay and Harikrishnan in Wayanad, Kerala.
-      We combine full-stack development, cloud engineering and AI automation to create reliable digital systems.
-      We believe in clarity, performance and long-term maintainability.
-    </p>
-  </div>
+<h2>Who Are We?</h2>
+<p>
+CodeInsanity is founded by Sanjay and Harikrishnan from Wayanad, Kerala.
+We are computer science graduates combining full-stack development,
+AI engineering, and cloud infrastructure to build scalable digital systems.
+We focus on long-term value, automation-first thinking, and clean architecture.
+</p>
 </section>
 
 <!-- WHAT -->
 <section id="what">
-  <div class="section-inner reveal">
-    <h2>What We Do</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Web Development</h3>
-        <p>SEO-friendly, fast and scalable websites.</p>
-      </div>
-      <div class="card">
-        <h3>Custom Software</h3>
-        <p>Business software built for real workflows.</p>
-      </div>
-      <div class="card">
-        <h3>AI Automation</h3>
-        <p>Smart systems that reduce manual work.</p>
-      </div>
-    </div>
-  </div>
+<h2>What We Do</h2>
+<div class="grid">
+  <div class="card">Web Development<br><small>SEO-friendly, fast, scalable websites</small></div>
+  <div class="card">Custom Software<br><small>Business tools, dashboards & APIs</small></div>
+  <div class="card">AI & Automation<br><small>Workflow automation & AI solutions</small></div>
+</div>
 </section>
 
 <!-- HOW -->
 <section id="how">
-  <div class="section-inner reveal">
-    <h2>How We Do It</h2>
-    <div class="grid">
-      <div class="card">Understand the problem</div>
-      <div class="card">Design clean solutions</div>
-      <div class="card">Build & test thoroughly</div>
-      <div class="card">Deploy and scale</div>
-    </div>
+<h2>How We Do It</h2>
+<div class="accordion">
+  <div class="item" onclick="toggleAcc(this)">
+    Planning
+    <div class="content">Understanding business goals and defining scope.</div>
   </div>
+  <div class="item" onclick="toggleAcc(this)">
+    Architecture
+    <div class="content">Designing scalable, cloud-ready systems.</div>
+  </div>
+  <div class="item" onclick="toggleAcc(this)">
+    Build & Automate
+    <div class="content">Clean code, AI workflows, automation.</div>
+  </div>
+</div>
 </section>
 
 <!-- WORKS -->
 <section id="works">
-  <div class="section-inner reveal">
-    <h2>Our Works</h2>
-    <ul class="works-list">
-      <li>AI-powered business website</li>
-      <li>Custom SaaS dashboard</li>
-      <li>Workflow automation system</li>
-    </ul>
+<h2>Our Works</h2>
+<div class="works">
+  <div class="works-list">
+    <div onmouseover="preview('AI Automation Systems')">AI Automation Systems</div>
+    <div onmouseover="preview('SaaS Platforms')">SaaS Platforms</div>
+    <div onmouseover="preview('Business Dashboards')">Business Dashboards</div>
   </div>
+  <div class="works-preview" id="preview">Hover a project to preview</div>
+</div>
+</section>
+
+<!-- COST -->
+<section id="cost">
+<h2>What Will It Cost?</h2>
+<div class="grid">
+  <div class="card">Website<br>SEO + Hosting Setup<br><strong>₹10,000+</strong></div>
+  <div class="card">Software<br>Custom Dashboard + API<br><strong>₹50,000+</strong></div>
+  <div class="card">AI Automation<br>Custom Workflow Systems<br><strong>Custom</strong></div>
+</div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-inner reveal">
-    <h2>Ready to Go Insane?</h2>
-    <p>Tell us about your idea and we’ll take it from there.</p>
-    <form>
-      <input type="text" placeholder="Name" required>
-      <input type="email" placeholder="Email" required>
-      <textarea placeholder="Message" rows="4"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </div>
+<h2>Ready to Go Insane?</h2>
+<form>
+  <input placeholder="Name">
+  <input placeholder="Email">
+  <textarea placeholder="Tell us about your project"></textarea>
+  <button class="cta">Send Message</button>
+</form>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  © 2026 CodeInsanity. Built with clarity.
+  <div class="footer-left">
+    <div class="logo">CodeInsanity</div>
+    <p>Wayanad, Kerala<br>contact@codeinsanity.in</p>
+  </div>
+  <div class="footer-right">
+    <a href="#">LinkedIn</a>
+    <a href="#">Instagram</a>
+    <a href="#">GitHub</a>
+  </div>
 </footer>
 
 <script>
-/* Preloader */
-window.onload = () => {
-  document.getElementById("preloader").style.display = "none";
-};
-
-/* Hamburger */
-document.getElementById("hamburger").onclick = () => {
-  document.getElementById("navLinks").classList.toggle("show");
-};
-
-/* Scroll reveal */
-const reveals = document.querySelectorAll(".reveal");
-const revealOnScroll = () => {
-  const trigger = window.innerHeight * 0.85;
-  reveals.forEach(el => {
-    if (el.getBoundingClientRect().top < trigger) {
-      el.classList.add("active");
-    }
-  });
-};
-window.addEventListener("scroll", revealOnScroll);
-revealOnScroll();
+window.onload=()=>setTimeout(()=>preloader.remove(),1000);
+function toggleMenu(){mobileMenu.classList.toggle('show')}
+function toggleAcc(el){el.classList.toggle('active')}
+function preview(t){document.getElementById('preview').innerText=t}
 </script>
 
 </body>
