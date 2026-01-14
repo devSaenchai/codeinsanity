@@ -1,54 +1,32 @@
-// HERO fade-in on load
-window.onload = () => {
-  const hero = document.getElementById('hero-content');
-  hero.style.opacity = '0';
-  hero.style.transform = 'translateY(20px)';
-  setTimeout(() => {
-    hero.style.transition = 'all 1s ease-out';
-    hero.style.opacity = '1';
-    hero.style.transform = 'translateY(0)';
-  }, 300);
-};
+// Preloader
+window.addEventListener("load", function(){
+  document.getElementById("preloader").style.display = "none";
+});
 
-// SCROLL reveal function
-const revealElements = document.querySelectorAll('.reveal');
+// Hamburger menu toggle
+const hamburger = document.querySelector(".hamburger");
+const navLinks = document.querySelector("nav ul");
+
+hamburger.addEventListener("click", ()=>{
+  navLinks.classList.toggle("show");
+});
+
+// Scroll to section
+function scrollToSection(id){
+  document.querySelector(id).scrollIntoView({behavior:'smooth'});
+}
+
+// Scroll reveal animation
+const sections = document.querySelectorAll('section, .hero h1, .hero p, .scroll-btn, .card');
 const revealOnScroll = () => {
-  const windowHeight = window.innerHeight;
-  revealElements.forEach(el => {
-    const top = el.getBoundingClientRect().top;
-    if (top < windowHeight - 100) {
-      el.classList.add('active');
+  const triggerBottom = window.innerHeight * 0.85;
+  sections.forEach(section=>{
+    const sectionTop = section.getBoundingClientRect().top;
+    if(sectionTop < triggerBottom){
+      section.style.opacity = 1;
+      section.style.transform = 'translateY(0)';
     }
   });
 };
 window.addEventListener('scroll', revealOnScroll);
-revealOnScroll();
-
-// VIEW ALL / SHOW LESS TOGGLE - What We Do
-document.getElementById('toggle-services').addEventListener('click', (event)=>{
-  const extra = document.getElementById('extra-services');
-  extra.classList.toggle('toggle-visible');
-  extra.classList.toggle('toggle-hidden');
-  event.target.innerText = extra.classList.contains('toggle-visible') ? 'Show Less' : 'View All';
-});
-
-// VIEW MORE / SHOW LESS TOGGLE - What We Did
-document.getElementById('toggle-projects').addEventListener('click', (event)=>{
-  const extra = document.getElementById('extra-projects');
-  extra.classList.toggle('toggle-visible');
-  extra.classList.toggle('toggle-hidden');
-  event.target.innerText = extra.classList.contains('toggle-visible') ? 'Show Less' : 'View More';
-});
-
-// PROJECT PREVIEW hover effect
-const projectItems = document.querySelectorAll('.project-item');
-projectItems.forEach(item => {
-  item.addEventListener('mouseenter', () => {
-    const preview = item.querySelector('.project-preview');
-    if(preview) preview.style.display = 'block';
-  });
-  item.addEventListener('mouseleave', () => {
-    const preview = item.querySelector('.project-preview');
-    if(preview) preview.style.display = 'none';
-  });
-});
+window.addEventListener('load', revealOnScroll);
